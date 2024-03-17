@@ -30,7 +30,15 @@ public class Client {
                 dos.writeUTF(entrada);
                 mensagem = dis.readUTF();
                 System.out.println("Servidor falou: " + mensagem);
-            }else{
+            }else if(entrada.equals("delete")){
+                String mensagem = dis.readUTF();
+                System.out.println("Servidor falou: " + mensagem);
+                entrada = teclado.nextLine();
+                dos.writeUTF(entrada);
+                mensagem = dis.readUTF();
+                System.out.println("Servidor falou: " + mensagem);
+            }
+            else{
                 // lendo o que o servidor enviou
                 String mensagem = dis.readUTF();
                 System.out.println("Servidor falou: " + mensagem);

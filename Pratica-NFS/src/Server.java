@@ -56,6 +56,22 @@ public class Server {
                     System.out.println("File created - " + file.getFileName());
                 }
             }
+
+            // DELETE
+            else if(message.equals("delete")){
+                dos.writeUTF("Enter the file name:");
+                String fileName = dis.readUTF();
+                Path file = Paths.get(path.toString() + "\\" + fileName);
+                if(Files.exists(file)){
+                    Files.delete(file);
+                    dos.writeUTF("File deleted");
+                    System.out.println("File deleted - " + file.getFileName());
+                }else{
+                    dos.writeUTF("File not found");
+                    System.out.println("File not found");
+                }
+            }
+            
             else{
                 dos.writeUTF("Receive your message - " + message);
             }
