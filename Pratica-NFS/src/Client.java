@@ -21,11 +21,20 @@ public class Client {
         while (true) {
             Scanner teclado = new Scanner(System.in);
             // escrevendo para o servidor
-            dos.writeUTF(teclado.nextLine());
-
-            // lendo o que o servidor enviou
-            String mensagem = dis.readUTF();
-            System.out.println("Servidor falou: " + mensagem);
+            String entrada = teclado.nextLine();
+            dos.writeUTF(entrada);
+            if(entrada.equals("create")){
+                String mensagem = dis.readUTF();
+                System.out.println("Servidor falou: " + mensagem);
+                entrada = teclado.nextLine();
+                dos.writeUTF(entrada);
+                mensagem = dis.readUTF();
+                System.out.println("Servidor falou: " + mensagem);
+            }else{
+                // lendo o que o servidor enviou
+                String mensagem = dis.readUTF();
+                System.out.println("Servidor falou: " + mensagem);
+            }
         }
         /*
          * Observe o while acima. Perceba que primeiro se escreve para o servidor (linha 27), depois se lê do canal de

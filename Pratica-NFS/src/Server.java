@@ -27,6 +27,8 @@ public class Server {
         while (true){
             String message = dis.readUTF();
             System.out.println("-> " + message);
+
+            // READDIR
             if(message.equals("readdir")){
                 String saida = "Those are the files...\n";
                 try (DirectoryStream<Path> stream = Files.newDirectoryStream(path)) {
@@ -38,7 +40,23 @@ public class Server {
                 } catch (IOException e) {
                     System.out.println("Error: " + e.getMessage());
                 }
-            }else{
+            }
+
+            // CREATE
+            else if(message.equals("create")){
+                dos.writeUTF("Enter the file name:");
+                String fileName = dis.readUTF();
+                Path file = Paths.get(path.toString() + "\\" + fileName);
+                if(Files.exists(file)){
+                    dos.writeUTF("File already exists");
+                    System.out.println("File already exists");
+                }else{
+                    Files.createFile(file);
+                    dos.writeUTF("File created");
+                    System.out.println("File created - " + file.getFileName());
+                }
+            }
+            else{
                 dos.writeUTF("Receive your message - " + message);
             }
         }
