@@ -17,21 +17,27 @@ public class Client {
         // enviados pelo servidor
         DataInputStream dis = new DataInputStream(socket.getInputStream());
 
+        String[] comandos = {"readdir", "create", "remove", "rename"};
         // laço infinito do cliente
         while (true) {
             Scanner teclado = new Scanner(System.in);
             // escrevendo para o servidor
             String entrada = teclado.nextLine();
             dos.writeUTF(entrada);
-            if(entrada.equals("create")){
+            if(entrada.equals("create") || entrada.equals("remove")){
                 String mensagem = dis.readUTF();
                 System.out.println("Servidor falou: " + mensagem);
                 entrada = teclado.nextLine();
                 dos.writeUTF(entrada);
                 mensagem = dis.readUTF();
                 System.out.println("Servidor falou: " + mensagem);
-            }else if(entrada.equals("delete")){
+            }
+            else if(entrada.equals("rename")){
                 String mensagem = dis.readUTF();
+                System.out.println("Servidor falou: " + mensagem);
+                entrada = teclado.nextLine();
+                dos.writeUTF(entrada);
+                mensagem = dis.readUTF();
                 System.out.println("Servidor falou: " + mensagem);
                 entrada = teclado.nextLine();
                 dos.writeUTF(entrada);

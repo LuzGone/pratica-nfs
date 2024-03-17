@@ -57,21 +57,38 @@ public class Server {
                 }
             }
 
-            // DELETE
-            else if(message.equals("delete")){
+            // REMOVE
+            else if(message.equals("remove")){
                 dos.writeUTF("Enter the file name:");
                 String fileName = dis.readUTF();
                 Path file = Paths.get(path.toString() + "\\" + fileName);
                 if(Files.exists(file)){
                     Files.delete(file);
-                    dos.writeUTF("File deleted");
-                    System.out.println("File deleted - " + file.getFileName());
+                    dos.writeUTF("File removed");
+                    System.out.println("File removed - " + file.getFileName());
                 }else{
                     dos.writeUTF("File not found");
                     System.out.println("File not found");
                 }
             }
-            
+
+            //RENAME
+            else if(message.equals("rename")){
+                dos.writeUTF("Enter the file name:");
+                String fileName = dis.readUTF();
+                Path file = Paths.get(path.toString() + "\\" + fileName);
+                if(Files.exists(file)){
+                    dos.writeUTF("Enter the new file name:");
+                    String newFileName = dis.readUTF();
+                    Path newFile = Paths.get(path.toString() + "\\" + newFileName);
+                    Files.move(file, newFile);
+                    dos.writeUTF("File renamed");
+                    System.out.println("File renamed - " + file.getFileName() + " to " + newFile.getFileName());
+                }else{
+                    dos.writeUTF("File not found");
+                    System.out.println("File not found");
+                }
+            }
             else{
                 dos.writeUTF("Receive your message - " + message);
             }
